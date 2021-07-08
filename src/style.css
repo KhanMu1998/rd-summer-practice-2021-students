@@ -1,0 +1,103 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+  font-family: arial;
+  color: white;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+#map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  height: 500px;
+}
+#header h3 {
+  padding: 10px 0px 10px;
+  margin: 0px;
+}
+#header {
+  width: 100%;
+  height: 55px;
+  border-bottom: 1px solid white;
+}
+
+#progress_bar_info p {
+  margin: 5px 0 0 0;
+}
+
+#progress_bar {
+  height: 15px;
+  background: gray;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+#container {
+  margin: auto auto;
+  text-align: center;
+  width: 100%;
+  background-color: rgb(74, 81, 74);
+}
+#left_sidebar {
+  width: 20%;
+}
+
+.team_info p {
+  margin: 3px;
+}
+
+#right_sidebar {
+  width: 20%;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
+  width: 80%;
+}
+
+#footer {
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.row {
+  display: inline-block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 3px;
+
+  text-align: center;
+
+  margin: 5px 5px;
+  padding: 6px 12px;
+}
+.greed_btn {
+  background: #28a73f;
+}
+.red_btn {
+  background: #b52121;
+}
+
+.blue_btn {
+  background: #1d88fb;
+}
+
+#footer div:hover {
+  background: gray;
+}
