@@ -66,12 +66,12 @@ body {
 }
 
 #footer {
-  padding-top: 10px;
+  padding: 10px 10px 10px 10px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 
   width: 100%;
-  height: 40px;
 }
 
 .row {
@@ -80,21 +80,18 @@ body {
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
+  border-radius: 3px;
 
   text-align: center;
 
-  margin: 0 auto;
+  margin: 5px 5px;
   padding: 6px 12px;
 }
 .greed_btn {
-  border-radius: 5px 0 0 5px;
   background: #28a73f;
 }
 .red_btn {
   background: #b52121;
-}
-.last_btn {
-  border-radius: 0 5px 5px 0;
 }
 
 .blue_btn {
