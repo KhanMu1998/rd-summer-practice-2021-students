@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <!--  TODO: Раскомментировать при начале работы с сервером -->
     <!--    <script src="modernizr.js"></script>-->
-    <!--    <script src="/js/jquery.js"></script>-->
+     <script src="/js/jquery.js"></script>
+     
     <!--    <script src="/js/jquery.signalR.js"></script>-->
     <!--    <script src="/js/gameApi.js"></script>-->
     <title>Игра - Полицейские и Мошенники</title>
@@ -19,13 +20,15 @@
 
       <div id="main">
         <div id="left_sidebar">
+          <div id="container_team1">
+
             <table class="team_info team1"> 
                 <tr>
                     <td>
                         <p>Название:</p>
                     </td>
-                    <td>
-                        <p> Сапр</p>
+                    <td id="nameTeam1">
+                        <span id="caption1"> Сапр</p>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +36,7 @@
                         <p>Очки:</p>
                     </td>
                     <td>
-                        <p> 0</p>
+                        <span id="coin1"></span>
                     </td>
                 </tr>
                 <tr>
@@ -41,46 +44,51 @@
                         <p>Осталось жизней:</p>
                     </td>
                     <td>
-                        <p> 5</p>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="team_info team2"> 
-                <tr>
-                    <td>
-                        <p>Название:</p>
-                    </td>
-                    <td>
-                        <p> Ыкин</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Очки:</p>
-                    </td>
-                    <td>
-                        <p> 0</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Осталось жизней:</p>
-                    </td>
-                    <td>
-                        <p> 5</p>
+                        <span id="lives1"> 5</span>
                     </td>
                 </tr>
             </table>
           
+          </div>
+          <div id="container_team2">
+
+         
+            <table class="team_info team2"> 
+                <tr>
+                    <td>
+                        <span >Название:</span>
+                    </td>
+                    <td>
+                        <span id="caption2"> Ыкин</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Очки:</p>
+                    </td>
+                    <td>
+                      <span id="coin2"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Осталось жизней:</p>
+                    </td>
+                    <td>
+                      <span id="lives2"> 5</span>
+                    </td>
+                </tr>
+            </table>
+           </div>
           
         </div>
 
         <div id="content">
           <div id="progress_bar_info"><p>Смена ролей</p></div>
-          <div id="progress_bar"></div>
+          <div id="progress_bar"><span id="Timer"></span>></div>
           <div id="map">
             <div class="hidden">
+              <canvas id="canvas"></canvas>
                 <img
                   id="img_heart"
                   src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmdfaGVhcnQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9
@@ -173,26 +181,64 @@
         </div>
 
         <div id="right_sidebar">
-          <p>Панель для логов</p>          
+          
+        <!--таблица по игроку-->
+        <div id='player{playerId}' class='game-player game-player-status-{status}'> 
+          <table class="info_player"> 
+            <tr>
+                <td>
+                    <p>Игрок:</p>
+                </td>
+                <td>
+                    <span class='game-player-name'>Имя</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Очки:</p>
+                </td>
+                <td>
+                    <span class='game-player-coins'>Очки</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Осталось жизней:</p>
+                </td>
+                <td>
+                    <span class='game-player-lives'>Жизни</span>
+                </td>
+            </tr>
+            <tr>
+              <td>
+                  <p>Количество смертей:</p>
+              </td>
+              <td>
+                  <span class='game-player-deaths'>Смерти</span>
+              </td>
+            </tr>
+          </table>
+        </div> 
+
         </div>
       </div>
 
       <div id="footer">
-    <a href= "start.php"><div class="greed_btn row">К списку игр</div></a>
-    <a href= "start.php"><div class="greed_btn row">Начать игру</div></a>
-    <a href= "start.php"><div class="greed_btn row">Подключиться к игре (случайно)</div></a>
-		<a href= "dis.php"><div  class="blue_btn row">Подключиться к полиции</div>
-		<a href= "reconnect.php"><div class="blue_btn row">Подключиться к мошенникам</div>
-		<a href= "sin.php"><div  class="blue_btn row">Покинуть игру</div>
-		<a href= "foto.php"><div  class="red_btn row">Пауза</div>
-		<a href= "start.php"><div  class="red_btn row last_btn">Прервать игру</div>
+    <a href= "start.php"><div class="greed_btn row" id="gameList">К списку игр</div></a>
+    <a href= "start.php"><div class="greed_btn row" id="start">Начать игру</div></a>
+    <a href= "start.php"><div class="greed_btn row" id="connect">Подключиться к игре (случайно)</div></a>
+		<a href= "dis.php"><div  class="blue_btn row" id="joinPolice">Подключиться к полиции</div>
+		<a href= "reconnect.php"><div class="blue_btn row" id="joinThief">Подключиться к мошенникам</div>
+		<a href= "sin.php"><div  class="blue_btn row" id="leave">Покинуть игру</div>
+		<a href= "foto.php"><div  class="red_btn row" id="pause">Пауза</div>
+		<a href= "start.php"><div  class="red_btn row last_btn" id="interupt">Прервать игру</div>
       </div>
     </div>
 
     <!-- TODO: Task 0. Построить вёрстку приложения по макету используя для сетки bootstrap -->
     
     <!--  TODO: Раскомментировать при начале работы с сервером -->
-    <!--<script src="app.js"></script>-->
+     <script src="app.js"></script>
     <!--<script>-->
     <!--    (function() {-->
     <!--        var gameApi = new GameApi();-->

@@ -758,56 +758,58 @@
                  *  можно использовать $('selector')
                  */
                 return {
-                    // $gameCaption: ,
-                    // $switchTimer: ,
-                    // team1: {
-                    //     $container: ,
-                    //     $caption: ,
+                     $gameCaption:$('#map') ,
+                     $switchTimer:$('#Timer') ,
+                      team1: {
+                     $container:$('#container_team1') ,
+                     $caption:$('#caption1'),
                     //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // team2: {
-                    //     $container: ,
-                    //     $caption: ,
+                     $lives:$('#lives1') ,
+                    $coins:$('#coins1')
+                    },
+                      team2: {
+                    $container:$('#container_team2') ,
+                    $caption:$('#caption2') ,
                     //     $players: ,
-                    //     $lives: ,
-                    //     $coins:
-                    // },
-                    // mapBuffer: null,
-                    // $mapCanvas: ,
-                    // mapCellSize: 25
+                    $lives:$('#lives2') ,
+                    $coins:$('#coins2')
+                     },
+                    mapBuffer: null,
+                    $mapCanvas:$('#canvas') ,
+                    mapCellSize: 25
                 };
             }
             function getButtons() {
                 // TODO Task1.2 Объявление переменных и их связка с DOM
                 return {
-                    // $btnGameList:,
-                    // $btnStart:,
-                    // $btnConnect:,
-                    // $btnConnectPolice:,
-                    // $btnConnectThief:,
-                    // $btnLeave:,
-                    // $btnPause:,
-                    // $btnCancel:
+                    $btnGameList:$('#gameList'),
+                    $btnStart:$('#start'),
+                    $btnConnect:$('#connect'),
+                    $btnConnectPolice:$('#joinPolice'),
+                    $btnConnectThief:$('#joinThief'),
+                    $btnLeave:$('#leave'),
+                    $btnPause:$('#pause'),
+                    $btnCancel:$('#interupt')
                 };
             }
             function getImages() {
                 // TODO Task1.3 Объявление переменных и их связка с DOM
                 return {
-                    // imgHeart: ,
-                    // imgCoin: ,
-                    // imgPolice: ,
-                    // imgPoliceSelf: ,
-                    // imgThief: ,
-                    // imgThiefSelf: ,
-                    // imgSwitch:
+                     imgHeart:$('#img_heart').get(0) ,
+                     imgCoin:$('#img_coin').get(0) ,
+                     mgPolice: $('#img_police').get(0),
+                     imgPoliceSelf:$('#img_police_self').get(0),
+                     imgThief:$('#img_thief').get(0),
+                     imgThiefSelf:$('#img_thief_self').get(0),
+                     imgSwitch:$('#img_switch').get(0)
                 };
             }
             function setMapCanvasSizing($canvas, width, height) {
                 /**
                  * TODO Task 2. Опишите функцию которая задаст размеры игрового поля
                  */
+                $canvas.width=width;
+                $canvas.height=height;
                 return $canvas;
             }
             function drawMapField(canvas, map, width, height, cellSize) {
@@ -861,10 +863,24 @@
                  *              повешайте обработчики событий на кнопки
                  *              нажатия на кнопки это событие click
                  */
-                // var c = this.state.callbacks;
-                // c.captionChanged
-                // c.invalidGame
-                // c.mapChanged
+                 
+                 var c = this.state.callbacks;
+                 c.captionChanged.add(function (name, status){
+                     this.setGameCaption(name, status);
+                 }.bind(this));
+
+                c.captionChanged.add(function (name, status){
+                    this.setTeamCaption(name, status);
+                }.bind(this));
+
+             /* c.invalidGame.add(function (name, status){
+                  this.invalidGame(name, status);
+                }.bind(this)); */
+
+            /*     c.mapChanged.add(function (name, status){
+                    this.(name, status);
+                  }.bind(this)); */
+                  
                 // c.playerChanged
                 // c.statusChanged
                 // c.synced
@@ -877,16 +893,47 @@
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
-                // var btns = this.btns;
-                // var $lastKey = -1;
-                // btns.$btnGameList.
+
+                var btns = this.btns;
+                var $lastKey = -1;
+
+                btns.$btnGameList.addEventListener("click",function () {
+                    window.location.replace("index.html");
+                    });
+
+                btns.$btnStart.click(function () {
+                this.state.game.start();
+                }.bind(this));
+
                 // btns.$btnStart.
-                // btns.$btnConnect.
-                // btns.$btnConnectPolice.
-                // btns.$btnConnectThief.
-                // btns.$btnLeave.
-                // btns.$btnPause.
-                // btns.$btnCancel.
+
+                btns.$btnConnect.addEventListener("click",function () {
+                    this.state.game.join(GameApi.GameTeamRole.random);
+                  }.bind(this));
+
+                btns.$btnConnectPolice.addEventListener("click",function () {
+                    this.state.game.join(GameApi.GameTeamRole.police);
+                  }.bind(this));
+                btns.$btnConnectThief.addEventListener("click",function () {
+                    this.state.game.join(GameApi.GameTeamRole.thief);
+                  }.bind(this));
+
+                btns.$btnLeave.click(
+                    function () {
+                    this.state.game.leave();
+                    }.bind(this)
+                    );
+
+                btns.$btnPause.click(
+                    function () {
+                    this.state.game.pause();
+                    }.bind(this)
+                    );
+                btns.$btnCancel.click(
+                    function () {
+                    this.state.game.cancel();
+                    }.bind(this)
+                    );
                 $(window).on('keydown', function(event) {
                     if ($lastKey === event.keyCode) {
                         return;
@@ -894,7 +941,7 @@
                     /**
                      * TODO Task 4. Вместо event.keyCode начните использовать event.key
                      */
-                    switch (event.keyCode) {
+                    switch (event.key) {
                         case 32:
                             event.preventDefault();
                             this.state.game.stopMoving();
@@ -916,7 +963,7 @@
                             this.state.game.beginMove(GameApi.MoveDirection.bottom);
                             break;
                     }
-                    //console.log(event);
+                    console.log(event);
                 }.bind(this));
                 $(window).on('keyup', function() {
                     $lastKey = -1;
@@ -1037,12 +1084,42 @@
                  * TODO: Task 6. Поменяйте под вашу вёрстку
                  */
                 return $(app.utils.t(
-                    "<div id='player{playerId}' class='game-player game-player-status-{status}'>" +
-                        "<span class='game-player-name'>{name}</span>" +
-                        " [<span class='game-player-coins'>{coins}</span>;" +
-                        "<span class='game-player-lives'>{lives}</span>;" +
-                        "<span class='game-player-deaths'>{deaths}</span>]" +
-                    "</div>", {
+                    " <div id='player{playerId}' class='game-player game-player-status-{status}'>" +
+                   "<table class='info_player'>" +
+                   "  <tr>" +
+                   "      <td>" +
+                   "          <p>Игрок:</p>" +
+                   "      </td>" +
+                   "      <td>" +
+                   "          <span class='game-player-name'>{name}</span>" +
+                   "      </td>" +
+                   "  </tr>" +
+                   "  <tr>" +
+                   "      <td>" +
+                   "          <p>Очки:</p>" +
+                   "      </td>" +
+                   "      <td>" +
+                   "          <span class='game-player-coins'>{coins}</span>" +
+                   "      </td>" +
+                   "  </tr>" +
+                   "  <tr>" +
+                   "      <td>" +
+                   "          <p>Осталось жизней:</p>" +
+                   "      </td>" +
+                   "      <td>" +
+                   "          <span class='game-player-lives'>{lives}</span>" +
+                   "      </td>" +
+                   "  </tr>" +
+                   "  <tr>" +
+                   "    <td>" +
+                   "        <p>Количество смертей:</p>" +
+                   "    </td>" +
+                   "    <td>" +
+                   "        <span class='game-player-deaths'>{deaths}</span>" +
+                   "    </td>" +
+                   "</tr>" +
+                   "</table>" +
+                   "</div>",{
                     playerId: player.id,
                     status: status,
                     name: player.name,
