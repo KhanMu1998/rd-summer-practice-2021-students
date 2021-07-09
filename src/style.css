@@ -33,7 +33,7 @@ body {
 }
 
 #progress_bar {
-  height: 15px;
+  height: 20px;
   background: gray;
   border-radius: 5px;
   margin: 5px;
@@ -100,4 +100,24 @@ body {
 
 #footer div:hover {
   background: gray;
+}
+
+.game-caption-name{
+  width: 100%;
+  border-bottom: 1px solid white;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align:center;
+}
+
+.game-caption-status{
+  margin-left: 10px;
+  text-transform: lowercase;
+  font-size: 14pt;
+  border-radius: 3px;
+  background-color: rgb(104, 109, 104);
+}
+
+.progress_bar{
+  font-size: 19px;
 }

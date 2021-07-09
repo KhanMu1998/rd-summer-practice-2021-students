@@ -759,7 +759,7 @@
                  */
                 return {
                      $gameCaption:$('#map') ,
-                     $switchTimer:$('#Timer') ,
+                     $switchTimer:$('#progress_bar') ,
                       team1: {
                      $container:$('#container_team1') ,
                      $caption:$('#caption1'),
@@ -1060,7 +1060,10 @@
                 this.game.$gameCaption
                     .empty()
                     .append($(app.utils.t(
-                        "<div class='game-caption-name'>{name} <span class='game-caption-status game-caption-status-{status}'>{statusName}</span></div>",
+                        "<div class='game-caption-name'>"+
+                            "<span class='game-caption-status'>{name}</span>"+
+                            "<span class='game-caption-status game-caption-status-{status}'>{statusName}</span>"+
+                         "</div>",
                         {name: name, status: status, statusName: app.utils.getStatusName(status)})));
             };
             GameView.prototype.setTimer = function (data) {

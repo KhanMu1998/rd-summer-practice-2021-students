@@ -17,7 +17,10 @@
       <div id="header">
         <h3>Полицейские и мошенники</h3>
       </div>
-
+      <div class='game-caption-name'>
+        <span class='game-caption-status'>Название</span>
+        <span class='game-caption-status'>Статус</span>
+      </div>
       <div id="main">
         <div id="left_sidebar">
           <div id="container_team1">
@@ -84,8 +87,9 @@
         </div>
 
         <div id="content">
+          
           <div id="progress_bar_info"><p>Смена ролей</p></div>
-          <div id="progress_bar"><span id="Timer"></span>></div>
+          <div id="progress_bar"><span class="timer">00:00</span></div>
           <div id="map">
             <div class="hidden">
               <canvas id="canvas"></canvas>
@@ -183,7 +187,7 @@
         <div id="right_sidebar">
           
         <!--таблица по игроку-->
-        <div id='player{playerId}' class='game-player game-player-status-{status}'> 
+        <div id='player' class='game-player '> 
           <table class="info_player"> 
             <tr>
                 <td>
