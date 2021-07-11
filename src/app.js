@@ -758,19 +758,19 @@
                  *  можно использовать $('selector')
                  */
                 return {
-                     $gameCaption:$('#map') ,
+                     $gameCaption:$('#game-caption-name') ,
                      $switchTimer:$('#progress_bar') ,
                       team1: {
                      $container:$('#container_team1') ,
                      $caption:$('#caption1'),
-                    //     $players: ,
+                     $players:$('#team1players') ,
                      $lives:$('#lives1') ,
                     $coins:$('#coins1')
                     },
                       team2: {
                     $container:$('#container_team2') ,
                     $caption:$('#caption2') ,
-                    //     $players: ,
+                    $players:$('#team2players') ,
                     $lives:$('#lives2') ,
                     $coins:$('#coins2')
                      },
@@ -866,45 +866,42 @@
                  
                  var c = this.state.callbacks;
                  c.captionChanged.add(function (name, status){
-                    this.setGameCaption(name, status);
-                }.bind(this));
-                c.captionChanged.add(function (name, status){
-                    this.setTeamCaption(name, status);
-                }.bind(this));
-                c.invalidGame.add(function () {
-                    this.showError();
-                }.bind(this));
-                c.mapChanged.add(function (map) {
-                    this.updateMap(map);
-                }.bind(this));
-                c.playerChanged.add(function (player) {
-                    this.updatePlayer(player);
-                }.bind(this));
-                c.statusChanged.add(function (status) {
-                    this.setButtons(status);
-                    this.toggleRotation(status);
-                }.bind(this));
-                c.synced.add(function () {
-                    this.show();
-                }.bind(this));
-                c.syncing.add(function () {
-                    this.showLoading();
-                }.bind(this));
-                c.teamCaptionChanged.add(function (team) {
-                    this.updateTeamCaption(team);
-                }.bind(this));
-                c.teamCoinsChanged.add(function (team) {
-                    this.updateTeamCoins(team);
-                }.bind(this));
-                c.teamLivesChanged.add(function (team) {
-                    this.updateTeamLives(team);
-                }.bind(this));
-                c.teamPlayersChanged.add(function (team) {
-                    this.updateTeam(team);
-                }.bind(this));
-                c.timerChanged.add(function (data) {
-                    this.setTimer(data);
-                }.bind(this));
+                     this.setGameCaption(name, status);
+                 }.bind(this));
+                 c.invalidGame.add(function () {
+                     this.showError();
+                 }.bind(this));
+                 c.mapChanged.add(function (map) {
+                     this.updateMap(map);
+                 }.bind(this));
+                 c.playerChanged.add(function (player) {
+                     this.updatePlayer(player);
+                 }.bind(this));
+                 c.statusChanged.add(function (status) {
+                     this.setButtons(status);
+                     this.toggleRotation(status);
+                 }.bind(this));
+                 c.synced.add(function () {
+                     this.show();
+                 }.bind(this));
+                 c.syncing.add(function () {
+                     this.showLoading();
+                 }.bind(this));
+                 c.teamCaptionChanged.add(function (team) {
+                     this.updateTeamCaption(team);
+                 }.bind(this));
+                 c.teamCoinsChanged.add(function (team) {
+                     this.updateTeamCoins(team);
+                 }.bind(this));
+                 c.teamLivesChanged.add(function (team) {
+                     this.updateTeamLives(team);
+                 }.bind(this));
+                 c.teamPlayersChanged.add(function (team) {
+                     this.updateTeam(team);
+                 }.bind(this));
+                 c.timerChanged.add(function (data) {
+                     this.setTimer(data);
+                 }.bind(this));
             };
             GameView.prototype.bindButtons = function () {
                 // TODO Task 3.1 повешайте обработчики событий
@@ -912,7 +909,7 @@
                 var btns = this.btns;
                 var $lastKey = -1;
 
-                btns.$btnGameList.addEventListener("click",function () {
+                btns.$btnGameList.click(function () {
                     window.location.replace("index.html");
                     });
 
@@ -937,6 +934,7 @@
                 btns.$btnCancel.click(function () {
                     this.state.game.cancel();
                 }.bind(this));
+
                 $(window).on('keydown', function(event) {
                     if ($lastKey === event.keyCode) {
                         return;
@@ -1060,10 +1058,8 @@
                 this.game.$gameCaption
                     .empty()
                     .append($(app.utils.t(
-                        "<div class='game-caption-name'>"+
                             "<span class='game-caption-status'>{name}</span>"+
-                            "<span class='game-caption-status game-caption-status-{status}'>{statusName}</span>"+
-                         "</div>",
+                            "<span class='game-caption-status game-caption-status-{status}'>{statusName}</span>",
                         {name: name, status: status, statusName: app.utils.getStatusName(status)})));
             };
             GameView.prototype.setTimer = function (data) {
@@ -1209,6 +1205,71 @@
                  *    this.state.getPlayer(currentUserId) - пользователь в игре?
                  *    this.btns - кнопки тут
                  */
+                 status = status || this.state.status;
+                 var btns = this.btns;
+                 var user = this.state.gameApi.questor.user.id;
+
+                 if (user === this.state.owner.id)
+                 var owner = currentUser === this.state.owner.id.isOwner;
+
+                 var admin = this.state.gameApi.questor.user.isAdmin;
+
+                 if (status === GameApi.GameStatus.canceled || status === GameApi.GameStatus.finished) { //если игра закрыта или окончена
+                     btns.$btnStart.addClass("hidden");
+                     btns.$btnLeave.addClass("hidden");
+                     btns.$btnPause.addClass("hidden");
+                     btns.$btnCancel.addClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                     return;
+                 }
+ 
+                 if (this.state.status === GameApi.GameStatus.open ||
+                     this.state.status === GameApi.GameStatus.ready) {
+                     btns.$btnPause.addClass("hidden");
+                     if (owner || admin) {
+                         btns.$btnStart.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }else {
+                        btns.$btnStart.addClass("hidden");
+                    }
+                 }
+
+                 if (this.state.status === GameApi.GameStatus.starting ||
+                     this.state.status === GameApi.GameStatus.inProcess) {
+                     btns.$btnStart.addClass("hidden");
+                     btns.$btnLeave.removeClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                     if (owner || admin) {
+                         btns.$btnPause.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }
+                     else {
+                         btns.$btnPause.addClass("hidden");
+                         btns.$btnCancel.addClass("hidden");
+                     }
+                 }
+                 else {
+                     if (isOwner || admin) {
+                         btns.$btnStart.removeClass("hidden");
+                         btns.$btnCancel.removeClass("hidden");
+                     }
+                     else {
+                         btns.$btnStart.addClass("hidden");
+                         
+                             btns.$btnCancel.addClass("hidden");
+                        
+                     }
+                     btns.$btnPause.addClass("hidden");
+                     btns.$btnLeave.removeClass("hidden");
+                     btns.$btnConnect.addClass("hidden");
+                     btns.$btnConnectThief.addClass("hidden");
+                     btns.$btnConnectPolice.addClass("hidden");
+                 }
+                
             };
             GameView.prototype.showLoading = function () {
                 /**
