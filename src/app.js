@@ -1376,7 +1376,7 @@
         var user = this.state.gameApi.questor.user.id;
 
         if (user === this.state.owner.id)
-          var owner = currentUser === this.state.owner.id.isOwner;
+          var owner = this.state.owner.id.isOwner;
 
         var admin = this.state.gameApi.questor.user.isAdmin;
 
@@ -1425,7 +1425,7 @@
             btns.$btnCancel.addClass("hidden");
           }
         } else {
-          if (isOwner || admin) {
+          if (owner || admin) {
             btns.$btnStart.removeClass("hidden");
             btns.$btnCancel.removeClass("hidden");
           } else {
