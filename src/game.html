@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <!--  TODO: Раскомментировать при начале работы с сервером -->
     <script src="modernizr.js"></script>
-     <script src="/js/jquery.js"></script>
-     
+    <script src="/js/jquery.js"></script>
+
     <script src="/js/jquery.signalR.js"></script>
     <script src="/js/gameApi.js"></script>
     <title>Игра - Полицейские и Мошенники</title>
@@ -17,142 +17,100 @@
       <div id="header">
         <h3>Полицейские и мошенники</h3>
       </div>
-      <div id='game-caption-name'>
-        <span class='game-caption-status'>Название</span>
-        <span class='game-caption-status'>Статус</span>
+      <div id="game-caption-name">
+        <span class="game-caption-status">Название</span>
+        <span class="game-caption-status">Статус</span>
       </div>
       <div id="main">
         <div id="left_sidebar">
           <div id="container_team1">
-            <table class="team_info team1"> 
-                <tr id='caption1'> 
-                    <td>
-                        <span class='game-team-name'>Название</span>
-                    </td>
-                    <td>
-                        <span class='game-team-role'>Роль</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Очки:</p>
-                    </td>
-                    <td>
-                        <span id="coins1"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Осталось жизней:</p>
-                    </td>
-                    <td>
-                        <span id="lives1"> 5</span>
-                    </td>
-                </tr>
+            <table class="team_info team1">
+              <tr id="caption1">
+                <td>
+                  <span class="game-team-name">Название</span>
+                </td>
+                <td>
+                  <span class="game-team-role">Роль</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Очки:</p>
+                </td>
+                <td>
+                  <span id="coins1"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Осталось жизней:</p>
+                </td>
+                <td>
+                  <span id="lives1"> 5</span>
+                </td>
+              </tr>
             </table>
-          
           </div>
           <div id="team1players"></div>
-          <div id="container_team2">
-            <table class="team_info team2"> 
-                <tr id='caption2'> 
-                  <td>
-                      <span class='game-team-name'>Название</span>
-                  </td>
-                  <td>
-                      <span class='game-team-role'>Роль</span>
-                  </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Очки:</p>
-                    </td>
-                    <td>
-                      <span id="coin2"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Осталось жизней:</p>
-                    </td>
-                    <td>
-                      <span id="lives2"> 5</span>
-                    </td>
-                </tr>
-            </table>
-           </div>
-           <div id="team2players"></div>
         </div>
 
         <div id="content">
-          
           <div id="progress_bar_info"><p>Смена ролей</p></div>
 
           <div id="progress_bar"><span class="timer">00:00</span></div>
 
           <div id="map">
-          <canvas id="canvas"></canvas>
-            
-
+            <canvas id="canvas"></canvas>
           </div>
         </div>
 
         <div id="right_sidebar">
-          
-        <!--таблица по игроку-->
-        <div id='player' class='game-player '> 
-          <table class="info_player"> 
-            <tr>
+          <div id="container_team2">
+            <table class="team_info team2">
+              <tr id="caption2">
                 <td>
-                    <p>Игрок:</p>
+                  <span class="game-team-name">Название</span>
                 </td>
                 <td>
-                    <span class='game-player-name'>Имя</span>
+                  <span class="game-team-role">Роль</span>
                 </td>
-            </tr>
-            <tr>
+              </tr>
+              <tr>
                 <td>
-                    <p>Очки:</p>
-                </td>
-                <td>
-                    <span class='game-player-coins'>Очки</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Осталось жизней:</p>
+                  <p>Очки:</p>
                 </td>
                 <td>
-                    <span class='game-player-lives'>Жизни</span>
+                  <span id="coin2"></span>
                 </td>
-            </tr>
-            <tr>
-              <td>
-                  <p>Количество смертей:</p>
-              </td>
-              <td>
-                  <span class='game-player-deaths'>Смерти</span>
-              </td>
-            </tr>
-          </table>
-        </div> 
-
+              </tr>
+              <tr>
+                <td>
+                  <p>Осталось жизней:</p>
+                </td>
+                <td>
+                  <span id="lives2"> 5</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="team2players"></div>
         </div>
       </div>
 
       <div id="footer">
-    <div class="greed_btn row" id="gameList">К списку игр</div>
-    <div class="greed_btn row" id="start">Начать игру</div>
-    <div class="greed_btn row" id="connect">Подключиться к игре (случайно)</div>
-		<div  class="blue_btn row" id="joinPolice">Подключиться к полиции</div>
-		<div class="blue_btn row" id="joinThief">Подключиться к мошенникам</div>
-		<div  class="blue_btn row" id="leave">Покинуть игру</div>
-		<div  class="red_btn row" id="pause">Пауза</div>
-		<div  class="red_btn row last_btn" id="interupt">Прервать игру</div> 
+        <div class="greed_btn row" id="gameList">К списку игр</div>
+        <div class="greed_btn row" id="start">Начать игру</div>
+        <div class="greed_btn row" id="connect">
+          Подключиться к игре (случайно)
+        </div>
+        <div class="blue_btn row" id="joinPolice">Подключиться к полиции</div>
+        <div class="blue_btn row" id="joinThief">Подключиться к мошенникам</div>
+        <div class="blue_btn row" id="leave">Покинуть игру</div>
+        <div class="red_btn row" id="pause">Пауза</div>
+        <div class="red_btn row last_btn" id="interupt">Прервать игру</div>
       </div>
     </div>
     <div class="hidden">
-              
       <img
         id="img_heart"
         src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmdfaGVhcnQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9
@@ -241,21 +199,25 @@ go8L3N2Zz4="
       />
     </div>
     <!-- TODO: Task 0. Построить вёрстку приложения по макету используя для сетки bootstrap -->
-    
-    <!--  TODO: Раскомментировать при начале работы с сервером -->
-     <script src="app.js"></script>
-    <script>
-        (function() {
-            var gameApi = new GameApi();
-            gameApi.questor.on("unauthorized", function () {
-                window.location.replace("../login");
-            });
-            gameApi.questor.login();
-            var gameState = new app.game.GameState(gameApi);
-            new app.game.GameView($("#game"), $("#loading"), $("#loadError"), gameState);
-            gameState.request();
-        })();
 
+    <!--  TODO: Раскомментировать при начале работы с сервером -->
+    <script src="app.js"></script>
+    <script>
+      (function () {
+        var gameApi = new GameApi();
+        gameApi.questor.on("unauthorized", function () {
+          window.location.replace("../login");
+        });
+        gameApi.questor.login();
+        var gameState = new app.game.GameState(gameApi);
+        new app.game.GameView(
+          $("#game"),
+          $("#loading"),
+          $("#loadError"),
+          gameState
+        );
+        gameState.request();
+      })();
     </script>
   </body>
 </html>

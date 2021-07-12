@@ -61,7 +61,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: stretch;
+  align-items: center;
   width: 80%;
 }
 
@@ -102,15 +102,15 @@ body {
   background: gray;
 }
 
-.game-caption-name{
+.game-caption-name {
   width: 100%;
   border-bottom: 1px solid white;
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align:center;
+  text-align: center;
 }
 
-.game-caption-status{
+.game-caption-status {
   margin-left: 10px;
   text-transform: lowercase;
   font-size: 14pt;
@@ -118,6 +118,6 @@ body {
   background-color: rgb(104, 109, 104);
 }
 
-.progress_bar{
+.progress_bar {
   font-size: 19px;
 }
